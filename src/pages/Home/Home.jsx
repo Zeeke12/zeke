@@ -1,24 +1,56 @@
-import React from 'react'
-import Spline from '@splinetool/react-spline';
+import React, { useState } from 'react'
+import TaskPage from './TaskPage';
 
 
 const Home = () => {
-  return (
-    <div>
-    <div className='flex justify-between mx-3 my-20'>
-      <div className='w-50 md:w-96 md:ml-9 text-white'><h1 className='text-2xl md:text-6xl mb-5 md:mb-10'>HEZEKIAH AJESI</h1> A web developer with 15 years of experience </div>
-      <div className="h-[600px] w-[500px] translate-y-20 md:translate-y-15 md:mr-20 sticky-top">
-    <Spline scene="https://prod.spline.design/Taea34amEVfK3UiQ/scene.splinecode" />
-    </div>
-    </div>
-    <div className='flex justify-between mx-3 my-20'>
-    <div className="h-[600px] w-[500px] translate-y-20 md:mr-20 sticky-top">
-    <Spline scene="https://prod.spline.design/Taea34amEVfK3UiQ/scene.splinecode" />
-    </div>
-      <div className='w-50 md:w-96 md:mr-9 text-white'><h1 className='text-2xl md:text-6xl mb-5 md:mb-10'>HEZEKIAH AJESI</h1> A web developer with 15 years of experience </div>
-    </div>
+  const [tasks, setTasks ] = useState([]);
+  const [task, setTask] = useState('');
 
+  const handleInput = (e) => {
+    setTask(e.target.value);
     
+  };
+  const addTask = () => {
+    if (task) {
+      setTasks([...tasks, task]);
+      localStorage.setItem('task', JSON.stringify(tasks));
+      setTask('');
+    }
+  };
+
+  
+  const removeTask = (index) => {
+    const updatedTasks = [...tasks];
+    updatedTasks.splice(index, 1)
+    setTasks(updatedTasks)
+  }
+  const clearTask = () => {
+    setTasks([])
+  }
+
+  
+
+  
+  
+
+  return (
+    <div className='flex flex-col mt-10'>
+      <h1 className='text-4xl mb-5 text-center'>Task List </h1>
+      <div className='flex flex-col border mx-auto px-5 border-green-500 w-[300px] md:w-[1000px] h-fit gap-5'>
+        <div className='flex flex-col mt-5  gap-5'>
+        <input type="text" placeholder='Add New Task' value={task} onChange={handleInput}  className='px-4 h-10 border border-green-800' />
+        <button onClick={addTask} className='bg-green-800 px-2 py-1 w-20 text-white '>Add Task </button>
+        </div>
+        <div>
+          {tasks.length === 0 ? <h1 className='text-4xl mb-5 text-center' >No Task </h1> : <h1 className='text-4xl mb-5 text-center'>Tasks</h1>}
+          <div>
+          {tasks.map((tas, index) => (<TaskPage key={index} tas={tas} removeTask={removeTask} index={index} />) )}
+          </div>
+          <div>
+            {tasks.length === 0 ? <span></span> : <button className='bg-black text-white px-2 py-1 w-20 my-4' onClick={clearTask}>Clear</button>}
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
