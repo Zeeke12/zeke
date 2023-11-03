@@ -37,9 +37,11 @@ const Home = () => {
     <div className='flex flex-col mt-10'>
       <h1 className='text-4xl mb-5 text-center'>Task List </h1>
       <div className='flex flex-col border mx-auto px-5 border-green-500 w-[300px] md:w-[1000px] h-fit gap-5'>
-        <div className='flex flex-col mt-5  gap-5'>
+        <div className='flex flex-col mt-5 gap-5'>
         <input type="text" placeholder='Add New Task' value={task} onChange={handleInput}  className='px-4 h-10 border border-green-800' />
-        <button onClick={addTask} className='bg-green-800 px-2 py-1 w-20 text-white '>Add Task </button>
+        <div>
+        <button onClick={addTask} className='bg-green-800 px-4 py-1 text-white '>Add Task </button>
+        </div>
         </div>
         <div>
           {tasks.length === 0 ? <h1 className='text-4xl mb-5 text-center' >No Task </h1> : <h1 className='text-4xl mb-5 text-center'>Tasks</h1>}
