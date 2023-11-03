@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import TaskPage from './TaskPage';
 
 
@@ -6,24 +6,26 @@ const Home = () => {
   const [tasks, setTasks ] = useState([]);
   const [task, setTask] = useState('');
 
+
   const handleInput = (e) => {
-    setTask(e.target.value);
-    
+    const value = e.target.value;
+    setTask(value);    
   };
+
   const addTask = () => {
     if (task) {
-      setTasks([...tasks, task]);
-      localStorage.setItem('task', JSON.stringify(tasks));
+      const newTasks = [...tasks, task];
+      setTasks(newTasks);
       setTask('');
     }
   };
-
   
   const removeTask = (index) => {
     const updatedTasks = [...tasks];
-    updatedTasks.splice(index, 1)
-    setTasks(updatedTasks)
-  }
+    updatedTasks.splice(index, 1);
+    setTasks(updatedTasks);
+  };
+
   const clearTask = () => {
     setTasks([])
   }
