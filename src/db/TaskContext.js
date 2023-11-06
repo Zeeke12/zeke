@@ -50,24 +50,15 @@ export const TaskContextProvider = (props) => {
   const markTask = (index) => {
     const updatedTasks = [...tasks];
     updatedTasks[index].completed = !updatedTasks[index].completed;
-
-    // Remove the completed task from the `tasks` array
     const incompleteTasks = updatedTasks.filter((task) => !task.completed);
-
-    // Add the completed task to the `completedTasks` array
     const completedTask = updatedTasks[index];
     completedTasks.push(completedTask);
 
     setTasks(incompleteTasks);
   };
   const moveCompletedTasks = () => {
-    // Filter completed tasks
     const completedTasks = tasks.filter((task) => task.completed);
-
-    // Filter incomplete tasks
     const incompleteTasks = tasks.filter((task) => !task.completed);
-
-    // Update state variables
     setTasks(incompleteTasks);
     setCompletedTasks(completedTasks);
   };
