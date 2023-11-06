@@ -49,12 +49,14 @@ export const TaskContextProvider = (props) => {
 
   const markTask = (index) => {
     const updatedTasks = [...tasks];
-    updatedTasks[index].completed = !updatedTasks[index].completed;
-    const incompleteTasks = updatedTasks.filter((task) => !task.completed);
-    const completedTask = updatedTasks[index];
-    completedTasks.push(completedTask);
+  updatedTasks[index].completed = !updatedTasks[index].completed;
+  const incompleteTasks = updatedTasks.filter((task) => !task.completed);
+  const completedTask = updatedTasks[index];
+  completedTasks.push(completedTask);
 
-    setTasks(incompleteTasks);
+  setTasks(incompleteTasks);
+  setCompletedTasks(completedTasks);
+  localStorage.setItem('tasks', JSON.stringify(updatedTasks));
   };
   const moveCompletedTasks = () => {
     const completedTasks = tasks.filter((task) => task.completed);
@@ -63,13 +65,17 @@ export const TaskContextProvider = (props) => {
     setCompletedTasks(completedTasks);
   };
 
+  const clearCompletedTask = () => {
+    setCompletedTasks([ ]);
+  }
+
 
 
   const clearTask = () => {
     setTasks([])
   }
 
-    const contextValue = {task, tasks, handleInput, addTask, removeTask, clearTask, markTask, completedTasks, incompleteTasks, moveCompletedTasks}
+    const contextValue = {task, tasks, handleInput, addTask, removeTask, clearTask, markTask, completedTasks, incompleteTasks, moveCompletedTasks, clearCompletedTask}
 
     return (
         <TaskContext.Provider value={contextValue}>

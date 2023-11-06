@@ -5,7 +5,7 @@ import CompletedTask from './CompletedTask';
 
 
 const Home = () => { 
-  const { task, tasks, handleInput, addTask, clearTask, incompleteTasks,  completedTasks } = useContext(TaskContext);
+  const { task, tasks, handleInput, addTask, clearTask, incompleteTasks,  completedTasks, clearCompletedTask } = useContext(TaskContext);
  
   
 
@@ -30,6 +30,9 @@ const Home = () => {
         ))}
           </div>
           <div>
+            {tasks.length === 0 ? <span></span> : <button className='bg-black text-white px-2 py-1 w-20 my-4' onClick={clearTask}>Clear</button>}
+          </div>
+          <div>
           {completedTasks.length === 0 ? <h1 className='text-2xl md:text-4xl mb-5 text-center' > </h1> : <h1 className='text-2xl md:text-4xl mb-5 text-center'>Completed Tasks</h1>}
         {completedTasks.map((task, index) => (
           <CompletedTask key={index} 
@@ -38,8 +41,9 @@ const Home = () => {
         ))}
           </div>
           <div>
-            {tasks.length === 0 ? <span></span> : <button className='bg-black text-white px-2 py-1 w-20 my-4' onClick={clearTask}>Clear</button>}
+            {completedTasks.length === 0 ? <span></span> : <button className='bg-black text-white px-2 py-1 w-20 my-4' onClick={clearCompletedTask}>Clear</button>}
           </div>
+          
         </div>
       </div>
     </div>
