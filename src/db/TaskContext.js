@@ -13,17 +13,20 @@ export const TaskContextProvider = (props) => {
 
 
     useEffect(() => {
-
+      console.log(localStorage)
     }, [])
     useEffect(() => {
     const storedTasks = localStorage.getItem('tasks');
     if (storedTasks !== null) {
       setTasks(JSON.parse(storedTasks));
     }
+    const storedCompletedTasks = localStorage.getItem('completedTasks');
+  console.log('Stored completed tasks:', storedCompletedTasks);
+  if (storedCompletedTasks !== null) {
+    setCompletedTasks(JSON.parse(storedCompletedTasks));
+  }
   }, []);
-  useEffect(() => {
-    localStorage.setItem('completedTasks', JSON.stringify(completedTasks));
-  }, [completedTasks]);
+
   
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
