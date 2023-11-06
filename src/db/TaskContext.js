@@ -21,10 +21,17 @@ export const TaskContextProvider = (props) => {
       setTasks(JSON.parse(storedTasks));
     }
   }, []);
+  useEffect(() => {
+    localStorage.setItem('completedTasks', JSON.stringify(completedTasks));
+  }, [completedTasks]);
   
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks));
   }, [tasks]);
+
+  useEffect(() => {
+    localStorage.setItem('completedTasks', JSON.stringify(completedTasks));
+  }, [completedTasks]);
 
   const handleInput = (e) => {
     const value = e.target.value;
@@ -56,7 +63,6 @@ export const TaskContextProvider = (props) => {
 
   setTasks(incompleteTasks);
   setCompletedTasks(completedTasks);
-  localStorage.setItem('tasks', JSON.stringify(updatedTasks));
   };
   const moveCompletedTasks = () => {
     const completedTasks = tasks.filter((task) => task.completed);
