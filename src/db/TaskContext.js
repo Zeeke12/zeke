@@ -21,7 +21,7 @@ export const TaskContextProvider = (props) => {
       setTasks(JSON.parse(storedTasks));
     }
     const storedCompletedTasks = localStorage.getItem('completedTasks');
-  console.log('Stored completed tasks:', storedCompletedTasks);
+    console.log('Stored completed tasks:', storedCompletedTasks);
   if (storedCompletedTasks !== null) {
     setCompletedTasks(JSON.parse(storedCompletedTasks));
   }

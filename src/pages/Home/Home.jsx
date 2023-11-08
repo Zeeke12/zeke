@@ -16,7 +16,7 @@ const Home = () => {
         <div className='flex flex-col mt-5 gap-5'>
         <input type="text" placeholder='Add New Task' value={task} onChange={handleInput} onSubmit={addTask}  className='px-4 h-10 border border-green-800' />
         
-        <div>{task.length < 3 ? <button className='bg-green-800 px-4 py-1 cursor-not-allowed text-white '>Add Task</button> :
+        <div>{task.length < 3 ? <button className='bg-green-400 px-4 py-1 cursor-not-allowed text-white '>Add Task</button> :
         <button onClick={addTask} className='bg-green-800 px-4 py-1 text-white '>Add Task </button>}
         </div>
         </div>
