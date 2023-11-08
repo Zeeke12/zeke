@@ -20,12 +20,14 @@ export const TaskContextProvider = (props) => {
     if (storedTasks !== null) {
       setTasks(JSON.parse(storedTasks));
     }
-    const storedCompletedTasks = localStorage.getItem('completedTasks');
-    console.log('Stored completed tasks:', storedCompletedTasks);
-  if (storedCompletedTasks !== null) {
-    setCompletedTasks(JSON.parse(storedCompletedTasks));
-  }
   }, []);
+
+  useEffect(() => {
+    const storedCompletedTasks = localStorage.getItem('completedTasks')
+    if (storedCompletedTasks !== null) {
+      setCompletedTasks(JSON.parse(storedCompletedTasks));
+    }
+  }, [])
 
   
   useEffect(() => {
@@ -59,21 +61,16 @@ export const TaskContextProvider = (props) => {
 
   const markTask = (index) => {
     const updatedTasks = [...tasks];
-  updatedTasks[index].completed = !updatedTasks[index].completed;
+    updatedTasks[index].completed = !updatedTasks[index].completed;
   const incompleteTasks = updatedTasks.filter((task) => !task.completed);
-  const completedTask = updatedTasks[index];
+    const completedTask = updatedTasks[index];
   completedTasks.push(completedTask);
-
+  console.log(completedTasks)
+  localStorage.setItem('completedTasks', JSON.stringify(completedTasks));
   setTasks(incompleteTasks);
   setCompletedTasks(completedTasks);
   };
-  const moveCompletedTasks = () => {
-    const completedTasks = tasks.filter((task) => task.completed);
-    const incompleteTasks = tasks.filter((task) => !task.completed);
-    setTasks(incompleteTasks);
-    setCompletedTasks(completedTasks);
-  };
-
+  
   const clearCompletedTask = () => {
     setCompletedTasks([ ]);
   }
@@ -84,7 +81,7 @@ export const TaskContextProvider = (props) => {
     setTasks([])
   }
 
-    const contextValue = {task, tasks, handleInput, addTask, removeTask, clearTask, markTask, completedTasks, incompleteTasks, moveCompletedTasks, clearCompletedTask}
+    const contextValue = {task, tasks, handleInput, addTask, removeTask, clearTask, markTask, completedTasks, incompleteTasks, clearCompletedTask}
 
     return (
         <TaskContext.Provider value={contextValue}>
